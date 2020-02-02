@@ -1,9 +1,6 @@
-# Raspberry Jam Photobooth
+# Raspberry Booth
 
-Yet another Raspberry Pi photobooth project. This one is made especially for
-Raspberry Jams participating in the [Big Birthday Weekend](http://rpf.io/bday).
-
-![](img/tweet.png)
+Based on : https://github.com/RaspberryPiFoundation/jam-photobooth
 
 Its features include:
 
@@ -13,8 +10,6 @@ Its features include:
 Raspberry Jam Birthday logo overlaid in the corner, and a specified message with
 the tweet
 - Works offline or without Twitter feature if not configured
-
-![](img/tweet2.png)
 
 ## Requirements
 
@@ -31,17 +26,6 @@ Software:
 - Picamera
 - GPIO Zero
 - Twython
-
-## Automated installation
-
-Open a terminal window and type:
-
-```
-curl -sSL http://rpf.io/jampb | bash
-```
-
-Note this reboots the Pi at the end of the script, and launches the program
-automatically.
 
 ## Manual installation
 
@@ -67,7 +51,7 @@ main menu, or using `raspi-config` on the command line.
 1. Git clone this repository:
 
     ```
-    git clone https://github.com/raspberrypifoundation/jam-photobooth
+    git clone https://github.com/r4phab/booth
     ```
 
 1. Enter the project directory and run the photobooth script:
