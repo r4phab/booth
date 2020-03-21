@@ -3,8 +3,7 @@ from picamera import PiCamera
 from time import gmtime, strftime
 import os
 
-overlay_path = os.path.join(os.path.dirname(__file__), 'bbw.png')
-overlay = Image.open(overlay_path)
+overlay = Image.open(os.path.join(os.path.dirname(__file__), 'overlay.png'))
 
 def _pad(resolution, width=32, height=16):
     # A little utility routine which pads the specified resolution

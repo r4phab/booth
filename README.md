@@ -51,7 +51,7 @@ Software:
 
 • Enter the project directory and run the photobooth script:
 
-    python3 photobooth.py
+    python3 launch.py
 
 • You should see an image preview appear, and the message:
 
@@ -65,7 +65,7 @@ Software:
 
 • To make the program run on boot, add the following entry using `crontab -e`:
 
-    @reboot python3 /home/pi/jam-photobooth/photobooth.py &
+    @reboot python3 /home/pi/booth/launch.py &
     
 ## Languages
 
@@ -77,7 +77,7 @@ the same.
 
 **Please note that the camera firmware does not support non-ASCII characters.**
 
-To select a language, edit the following line in `photobooth.py`:
+To select a language, edit the following line in `launch.py`:
 
     python
     text = get_text(language='en')
