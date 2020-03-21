@@ -37,42 +37,30 @@ Software:
 
 • Enable the camera module with Raspi-config
 
-    ```
     raspi-config
-    ```
     
 • Reboot.
 
-    ```
     telinit 6
-    ```
 
 • Install the requirements:
 
-    ```
     sudo apt update
     sudo apt install python3-gpiozero python3-picamera python3-pip git -y
     sudo pip3 install twython --upgrade
-    ```
 
 • Git clone this repository:
 
-    ```
     git clone https://github.com/r4phab/booth
-    ```
 
 • Enter the project directory and run the photobooth script:
 
-    ```
     python3 photobooth.py
-    ```
 
 • You should see an image preview appear, and the message:
 
-    ```
     Ready!
     Press the button to start...
-    ```
 
 • Now use the button to progress to the next step, and continue.
 
@@ -81,9 +69,7 @@ Software:
 
 • To make the program run on boot, add the following entry using `crontab -e`:
 
-    ```
     @reboot python3 /home/pi/jam-photobooth/photobooth.py &
-    ```
     
 ## Languages
 
@@ -97,9 +83,8 @@ the same.
 
 To select a language, edit the following line in `photobooth.py`:
 
-```python
-text = get_text(language='en')
-```
+    python
+    text = get_text(language='en')
 
 Current language support:
 
