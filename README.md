@@ -21,15 +21,11 @@ Software:
 
 • Download Raspbian Desktop :
 
-    ```
     https://downloads.raspberrypi.org/raspbian_full_latest
-    ```
  
 • Install Raspbian to SD CARD :
 
-    ```
     https://www.raspberrypi.org/documentation/installation/installing-images/
-    ```
 
 • Connect the camera module, wire your button to GPIO14 and insert the SD card.
 
