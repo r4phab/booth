@@ -41,9 +41,8 @@ Software:
 
 • Install the requirements:
 
-    sudo apt update
-    sudo apt install python3-gpiozero python3-picamera python3-pip git -y
-    sudo pip3 install twython --upgrade
+    sudo apt update && sudo apt-get upgrade
+    sudo apt install python3-gpiozero python3-picamera git -y
 
 • Git clone this repository:
 

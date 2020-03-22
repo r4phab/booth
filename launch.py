@@ -1,48 +1,61 @@
-from jam_picamera import JamPiCamera
+from boothCamera import BoothCamera
 from text import get_text
-from gpiozero import Button
 from time import sleep
+import RPi.GPIO as GPIO
+from PIL import Image
+import os
 
-camera = JamPiCamera()
+BUTTON_PIN  = 21
+LED_PIN = 16 #connected to external 12v.
+buttonEvent = False
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+camera = BoothCamera()
 camera.rotation = 30
-button = Button(14, hold_time=5)
 
 text = get_text(language='en')
 
 camera.resolution = (1024, 768)
-camera.annotate_text_size = 70
-camera.start_preview()
+camera.start()
 
-def quit():
-    camera.close()
+#button.when_held = quit
 
-def countdown(n):
-    for i in reversed(range(n)):
-        camera.annotate_text = '{}...'.format(i + 1)
-        sleep(1)
-    camera.annotate_text = None
+def state_start():
+    camera.updateScreen("screen1")
+    GPIO.setup(LED_PIN, GPIO.IN)
 
-def capture_photos(n):
-    """
-    Capture n photos in sequence and return a list of file paths
-    """
-    photos = []
-    for pic in range(n):
-        camera.annotate_text = text['photo number'].format(pic + 1, n)
-        sleep(1)
-        camera.annotate_text = text['press to capture']
-        button.wait_for_press()
-        button.wait_for_release()
-        sleep(1)
-        countdown(3)
-        photo = camera.capture()
-        photos.append(photo)
-    return photos
+def play():
+    camera.hideScreen()
+    camera.updateOverlay("countdown3", 200)
+    sleep(1)
+    camera.updateOverlay("countdown2", 200)
+    sleep(1)
+    camera.updateOverlay("countdown1", 200)
+    sleep(1)
+    camera.updateOverlay("overlay", 50)
+    sleep(1)
+    photo = camera.capture()
+    camera.updateScreen("loading")
+    Image.alpha_composite(Image.open(photo).convert('RGBA'), Image.open(os.path.join(os.path.dirname(__file__), 'img/overlay.png')).convert('RGBA')).save(photo)
+    camera.updateScreenWithImg("screenend", photo)
+    sleep(20)
 
-button.when_held = quit
+def onButtonPress():
+    play()
+    state_start()
+
+state_start()
 
 while True:
-    camera.annotate_text = text['ready']
-    button.wait_for_press()
-    photos = capture_photos(4)
-    camera.annotate_text = None
+    #camera.annotate_text = text['ready']
+    input_state = GPIO.input(BUTTON_PIN)
+    if input_state == True :
+        if buttonEvent == False :
+            buttonEvent = True
+            onButtonPress()
+    else :
+        if buttonEvent == True :
+            buttonEvent = False
+           #onButtonDePress()
