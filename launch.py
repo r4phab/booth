@@ -1,3 +1,4 @@
+from ftplib import FTP
 from boothCamera import BoothCamera
 from text import get_text
 from time import sleep
@@ -39,6 +40,13 @@ def play():
     photo = camera.capture()
     camera.updateScreen("loading")
     Image.alpha_composite(Image.open(photo).convert('RGBA'), Image.open(os.path.join(os.path.dirname(__file__), 'img/overlay.png')).convert('RGBA')).save(photo)
+
+    ftp = FTP('159.89.15.202')
+    ftp.login('userFtp', '$*M"8_S2P&q%cGb6')
+    ftp.cwd("/var/www/html/www.marie-raphael.fr/images/booth")
+    ftp.storbinary('STOR ' + camera.generateName(), open(photo, 'rb'))
+    ftp.quit()
+
     camera.updateScreenWithImg("screenend", photo)
     sleep(20)
 

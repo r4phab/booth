@@ -1,6 +1,6 @@
 from PIL import Image
 from picamera import PiCamera
-from time import gmtime, strftime
+import datetime
 import os
 
 screen = None
@@ -16,14 +16,14 @@ def _pad(resolution, width=32, height=16):
         ((resolution[1] + (height - 1)) // height) * height,
     )
 
-def _gen_filename():
-    """
-    Generates a filename with a timestamp
-    """
-    filename = strftime("/home/pi/Pictures/photo-%d-%m %H:%M:%S.png", gmtime())
-    return filename
-
 class BoothCamera(PiCamera):
+
+    def generateName(self):
+        return str(int(datetime.datetime.now().timestamp())) + '.png'
+
+    def generatePath(self):
+       return "/home/pi/Pictures/" + self.generateName()
+
     def start(self):
         self.updateOverlay("overlay", 50)
         super(BoothCamera, self).start_preview(fullscreen=True)
@@ -70,6 +70,6 @@ class BoothCamera(PiCamera):
         self.showScreen()
 
     def capture(self):
-        output = _gen_filename()
+        output = self.generatePath()
         super(BoothCamera, self).capture(output)
         return output
