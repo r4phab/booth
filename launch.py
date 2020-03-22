@@ -42,7 +42,7 @@ def play():
     Image.alpha_composite(Image.open(photo).convert('RGBA'), Image.open(os.path.join(os.path.dirname(__file__), 'img/overlay.png')).convert('RGBA')).save(photo)
 
     ftp = FTP('159.89.15.202')
-    ftp.login(os.environ.get('FTP_USER'), os.environ.get('FTP_PASS'))
+    ftp.login(os.environ['FTP_USER'], os.environ['FTP_PASS'])
     ftp.cwd("/var/www/html/www.marie-raphael.fr/images/booth")
     ftp.storbinary('STOR ' + camera.generateName(), open(photo, 'rb'))
     ftp.quit()
@@ -54,6 +54,7 @@ def onButtonPress():
     play()
     state_start()
 
+print(os.environ)
 state_start()
 
 while True:
